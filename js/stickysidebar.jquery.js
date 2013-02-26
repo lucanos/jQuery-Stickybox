@@ -39,8 +39,9 @@
           reset( null , $sb );
         });
         stickyboxes=[];
-        $window.unbind( "scroll" , moveIntoView );
-        $window.unbind( "resize" , reset );
+        $window
+          .unbind( "scroll" , moveIntoView )
+          .unbind( "resize" , reset );
         return this;
       }
 
@@ -66,9 +67,9 @@
         $this
           .stop()
           .animate(
-              { top: animTo } ,
-              settings.speed ,
-              settings.easing
+            { top: animTo } ,
+            settings.speed ,
+            settings.easing
           );
       }
     });
@@ -85,12 +86,12 @@
         data = {
           offs: {} , // our parents offset
           orig: { // cache for original css
-              top: $this.css("top") ,
-              left: $this.css("left") ,
-              position: $this.css("position") ,
-              marginTop: $this.css("marginTop") ,
-              marginLeft: $this.css("marginLeft") ,
-              offset: $this.offset()
+            top: $this.css("top") ,
+            left: $this.css("left") ,
+            position: $this.css("position") ,
+            marginTop: $this.css("marginTop") ,
+            marginLeft: $this.css("marginLeft") ,
+            offset: $this.offset()
           }
         }
       }
@@ -113,13 +114,15 @@
           left: 0 ,
           bottom: $( document ).height()
         };
-      $this.css({
+      $this
+        .css({
           position: "absolute" ,
           top: Math.floor(currOff.top - data.offs.top) + "px" ,
           left: Math.floor(currOff.left - data.offs.left) + "px" ,
           margin: 0 ,
           width: $this.width() ,
-      }).data( "stickySB" , data );
+        })
+        .data( "stickySB" , data );
     }
   }
 
@@ -130,13 +133,14 @@
     $.each( stickies , function( i , $sb ){
       var data = $sb.data( "stickySB" );
       if( data ){
-        $sb.css({
-            position: data.orig.position ,
-            marginTop: data.orig.marginTop ,
-            marginLeft: data.orig.marginLeft ,
-            left: data.orig.left ,
-            top: data.orig.top ,
-        });
+        $sb
+          .css({
+              position: data.orig.position ,
+              marginTop: data.orig.marginTop ,
+              marginLeft: data.orig.marginLeft ,
+              left: data.orig.left ,
+              top: data.orig.top ,
+          });
         if( !$toReset ){ // just resetting
           setPosition( $sb );
           moveIntoView();
@@ -145,8 +149,9 @@
     });
   }
 
-  $window.bind( "scroll" , moveIntoView );
-  $window.bind( "resize" , reset );
+  $window
+    .bind( "scroll" , moveIntoView )
+    .bind( "resize" , reset );
 
   $.fn.stickySidebar = function( method ){
     if( methods[method] )
